@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\GameDev\\CodeAlongs\\HelloWorld\\",
+  "WorkspaceRootPath": "D:\\GameDev\\VGDFGP-Assignment1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4C4F4447-D7FA-4638-BAEC-43462D9D2619}|HelloWorld.vcxproj|D:\\GameDev\\CodeAlongs\\HelloWorld\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{4C4F4447-D7FA-4638-BAEC-43462D9D2619}|HelloWorld.vcxproj|D:\\GameDev\\VGDFGP-Assignment1\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4C4F4447-D7FA-4638-BAEC-43462D9D2619}|HelloWorld.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "main.cpp",
-              "DocumentMoniker": "D:\\GameDev\\CodeAlongs\\HelloWorld\\main.cpp",
+              "DocumentMoniker": "D:\\GameDev\\VGDFGP-Assignment1\\main.cpp",
               "RelativeDocumentMoniker": "main.cpp",
-              "ToolTip": "D:\\GameDev\\CodeAlongs\\HelloWorld\\main.cpp",
+              "ToolTip": "D:\\GameDev\\VGDFGP-Assignment1\\main.cpp",
               "RelativeToolTip": "main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAYwB4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-07T23:33:19.402Z",
               "EditorCaption": ""

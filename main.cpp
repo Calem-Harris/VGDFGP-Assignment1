@@ -10,64 +10,92 @@ using std::string;
 using std::cout;
 using std::vector;
 
+//Function Prototype
+//void means that the function doesn't return anything
+//Step 1: Create function prototype
+void displayInventory();
+void doYouWantToBuySomethingElse(string question);
+//If low isn't given a value, its value is 1
+int askNumber(int high, int low = 1);
+
+//These now belong to our script which means ANYTHING inside our script can access them
+vector<string> inventory;
+vector<string>::const_iterator iter;
+char response = ' ';
+
+//This is the function that is being run on PLAY
 int main()
 {
-	vector<string> inventory;
-									//Crossbow
-	inventory.push_back("sword"); //BattleAxe
-	inventory.push_back("shield"); // = end() - 2
+	inventory.push_back("sword");
+	inventory.push_back("shield");
 	inventory.push_back("armor");
-									//end is looking here
+	//end is looking here
 
-	vector<string>::iterator myIterator;
-	vector<string>::const_iterator iter;
+	do {
+		//These variables are LOCAL to main
+		/*vector<string> inventory;*/
 
-	cout << "You have " << inventory.size() << " items\n";
+		vector<string>::iterator myIterator;
 
-	cout << "\nYour items: \n";
 
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
-		cout << *iter << std::endl;
-	}
+		//Step 3: Call the function in main()
+		displayInventory();
 
-	cout << "\nYou trade your sword for a Battleaxe\n";
-	myIterator = inventory.begin();
-	*myIterator = "BattleAxe";
+		//When askNumber finishes running, it is going to give us a integer value that we can use.
+		switch (askNumber(3, 1)) {
+		case 1:
+			//User buys sword
+			cout << "You bought a sword!";
+			break;
 
-	cout << "\nYour items: \n";
+		case 2:
+			//User buys shield
+			cout << "You bought a shield";
+			break;
 
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
-		cout << *iter << std::endl;
-	}
+		case 3:
+			//User buys armor
+			cout << "You bought some armor!";
+			break;
+		default:
+			cout << "Invalid number. Try again";
+		}
 
-	cout << "\nYou recover a crossbow from a slain enemy.\n";
-	inventory.insert(inventory.begin(), "crossbow");
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
-		cout << *iter << std::endl;
-	}
 
-	cout << "\nYour shield was destroyed in a fire\n";
-	inventory.erase(inventory.end() - 2);
-
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
-		cout << *iter << std::endl;
-	}
-
-	cout << "\nYou fought a fierce battle and lost your armor.\n";
-	inventory.pop_back();
+		string questionToAsk = "Would you like to buy something else?";
+		doYouWantToBuySomethingElse(questionToAsk);
+	} while (response != 'n');
 	
-	cout << "\nYour items: \n";
+	return 0;
+}
 
-	for (int i = 0; i < inventory.size(); i++) {
-		cout << inventory[i] << std::endl;
+//Step 2: Define the actual function
+void displayInventory() {
+	cout << "\nMerchant items: \n";
+
+	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
+		cout << *iter << std::endl;
 	}
+}
 
-	cout << "\nYou run into a theif who steals all your remaining items!\n";
-	inventory.clear();
+//We only have access to our question variable INSIDE of this function.
+//This is known as a temporary variable.
+void doYouWantToBuySomethingElse(string question)
+{
+	do {
+		cout << question << " (y/n)" << std::endl;
+		std::cin >> response;
+		//Either the left OR the right needs to be true
+	} while (response != 'y' && response != 'n');
+}
 
-	cout << "\nYour items: \n";
+int askNumber(int high, int low)
+{
+	int num = 0;
+	do {
+		cout << "Please enter a number " << "(" << low << " - " << high << "): ";
+		std::cin >> num;
+	} while (num > high || num < low);
 
-	for (int i = 0; i < inventory.size(); i++) {
-		cout << inventory[i] << std::endl;
-	}
+	return num;
 }
