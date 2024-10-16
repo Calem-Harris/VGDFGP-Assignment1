@@ -10,92 +10,61 @@ using std::string;
 using std::cout;
 using std::vector;
 
-//Function Prototype
-//void means that the function doesn't return anything
-//Step 1: Create function prototype
-void displayInventory();
-void doYouWantToBuySomethingElse(string question);
-//If low isn't given a value, its value is 1
-int askNumber(int high, int low = 1);
+void display(const vector<string>& inventoryVector);
+string& referenceToElement(vector<string>& inventoryVector, int elementPosition);
 
-//These now belong to our script which means ANYTHING inside our script can access them
-vector<string> inventory;
-vector<string>::const_iterator iter;
-char response = ' ';
-
-//This is the function that is being run on PLAY
-int main()
-{
+int main() {
+	vector<string> inventory;
 	inventory.push_back("sword");
-	inventory.push_back("shield");
 	inventory.push_back("armor");
-	//end is looking here
+	inventory.push_back("shield");
 
-	do {
-		//These variables are LOCAL to main
-		/*vector<string> inventory;*/
+	//Display the string that the returned reference refers to
+	cout << "Sending the returned reference to cout:\n";
+	cout << referenceToElement(inventory, 0) << "\n\n";
 
-		vector<string>::iterator myIterator;
+	//Assign one reference to another -- inexpensive assignment
+	cout << "Assigning the returned reference to another reference.\n";
+	string& referenceString = referenceToElement(inventory, 1);
+	cout << "Sending the new reference to cout\n";
+	cout << referenceString << "\n\n";
 
+	//Making a reference to a reference
+	cout << "Assigning a reference to another reference.\n";
+	string& referenceToStringReference = referenceString;
+	cout << "Sending the new reference to cout\n";
+	cout << referenceToStringReference << "\n\n";
 
-		//Step 3: Call the function in main()
-		displayInventory();
+	//Copying a string object -- expensive assignment!!!
+	cout << "Assign the returned reference to a string object.\n";
+	string str = referenceToElement(inventory, 2);
+	cout << "Send the new string object to cout:\n";
+	cout << str << "\n\n";
 
-		//When askNumber finishes running, it is going to give us a integer value that we can use.
-		switch (askNumber(3, 1)) {
-		case 1:
-			//User buys sword
-			cout << "You bought a sword!";
-			break;
+	//Altering a string object through returned references
+	cout << "Altering a string object through returned references\n";
+	referenceString = "Healing Potion";
+	cout << "Sending the altered object to cout\n";
+	cout << inventory[1] << std::endl;
 
-		case 2:
-			//User buys shield
-			cout << "You bought a shield";
-			break;
+	cout << "Altering a string object through returned references\n";
+	referenceToStringReference = "Greataxe";
+	cout << "Sending the altered object to cout\n";
+	cout << inventory[1] << std::endl;
 
-		case 3:
-			//User buys armor
-			cout << "You bought some armor!";
-			break;
-		default:
-			cout << "Invalid number. Try again";
-		}
-
-
-		string questionToAsk = "Would you like to buy something else?";
-		doYouWantToBuySomethingElse(questionToAsk);
-	} while (response != 'n');
-	
 	return 0;
 }
 
-//Step 2: Define the actual function
-void displayInventory() {
-	cout << "\nMerchant items: \n";
-
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
+//Allows us to have access to the referred type BUT WE CANNOT EDIT IT
+void display(const vector<string>& inventoryVector)
+{
+	cout << "Your items: " << "\n";
+	for (vector<string>::const_iterator iter = inventoryVector.begin(); iter != inventoryVector.end(); ++iter) {
 		cout << *iter << std::endl;
 	}
 }
 
-//We only have access to our question variable INSIDE of this function.
-//This is known as a temporary variable.
-void doYouWantToBuySomethingElse(string question)
+string& referenceToElement(vector<string>& inventoryVector, int elementPosition)
 {
-	do {
-		cout << question << " (y/n)" << std::endl;
-		std::cin >> response;
-		//Either the left OR the right needs to be true
-	} while (response != 'y' && response != 'n');
-}
-
-int askNumber(int high, int low)
-{
-	int num = 0;
-	do {
-		cout << "Please enter a number " << "(" << low << " - " << high << "): ";
-		std::cin >> num;
-	} while (num > high || num < low);
-
-	return num;
+	return inventoryVector[elementPosition];
 }
