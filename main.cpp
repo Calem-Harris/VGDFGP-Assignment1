@@ -10,51 +10,50 @@ using std::string;
 using std::cout;
 using std::vector;
 
-//Function Prototype
-//void means that the function doesn't return anything
-//Step 1: Create function prototype
 void displayInventory();
 void doYouWantToBuySomethingElse(string question);
-//If low isn't given a value, its value is 1
 int askNumber(int high, int low = 1);
 
-//These now belong to our script which means ANYTHING inside our script can access them
-vector<string> inventory;
+vector<string> merchantInventory;
+vector<int> merchantInventoryQuantity;
+
 vector<string>::const_iterator iter;
 char response = ' ';
 
-//This is the function that is being run on PLAY
 int main()
 {
-	inventory.push_back("sword");
-	inventory.push_back("shield");
-	inventory.push_back("armor");
-	//end is looking here
+	//Creating our inventory objects
+	merchantInventory.push_back("sword: 20G");
+	merchantInventory.push_back("shield: 10G");
+	merchantInventory.push_back("armor: 5G");
+
+	//Linking this vector's elements to the elements above!
+	merchantInventoryQuantity.push_back(2);
+	merchantInventoryQuantity.push_back(1);
+	merchantInventoryQuantity.push_back(5);
 
 	do {
-		//These variables are LOCAL to main
-		/*vector<string> inventory;*/
-
-		vector<string>::iterator myIterator;
-
-
-		//Step 3: Call the function in main()
 		displayInventory();
 
-		//When askNumber finishes running, it is going to give us a integer value that we can use.
+		for (int i = 0; i < merchantInventory.size(); ++i) {
+			cout << "Object: " << merchantInventory[i] << "   Quantity: " << merchantInventoryQuantity[i] << std::endl;
+
+			//The player buys something
+			if (merchantInventoryQuantity[i] == 0) {
+				merchantInventory[i] = "SOLD OUT";
+			}
+		}
+
 		switch (askNumber(3, 1)) {
 		case 1:
-			//User buys sword
 			cout << "You bought a sword!";
 			break;
 
 		case 2:
-			//User buys shield
 			cout << "You bought a shield";
 			break;
 
 		case 3:
-			//User buys armor
 			cout << "You bought some armor!";
 			break;
 		default:
@@ -69,23 +68,20 @@ int main()
 	return 0;
 }
 
-//Step 2: Define the actual function
 void displayInventory() {
 	cout << "\nMerchant items: \n";
 
-	for (iter = inventory.begin(); iter != inventory.end(); iter++) {
+	for (iter = merchantInventory.begin(); iter != merchantInventory.end(); iter++) {
 		cout << *iter << std::endl;
 	}
 }
 
-//We only have access to our question variable INSIDE of this function.
-//This is known as a temporary variable.
+
 void doYouWantToBuySomethingElse(string question)
 {
 	do {
 		cout << question << " (y/n)" << std::endl;
 		std::cin >> response;
-		//Either the left OR the right needs to be true
 	} while (response != 'y' && response != 'n');
 }
 
