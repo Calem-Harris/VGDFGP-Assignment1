@@ -37,16 +37,16 @@ int main()
 
 		for (int i = 0; i < merchantInventory.size(); ++i) {
 			cout << "Object: " << merchantInventory[i] << "   Quantity: " << merchantInventoryQuantity[i] << std::endl;
-
-			//The player buys something
-			if (merchantInventoryQuantity[i] == 0) {
-				merchantInventory[i] = "SOLD OUT";
-			}
 		}
 
 		switch (askNumber(3, 1)) {
 		case 1:
 			cout << "You bought a sword!";
+			merchantInventoryQuantity[0] = merchantInventoryQuantity[0] - 1;
+
+			if (merchantInventoryQuantity[0] == 0) {
+				merchantInventory[0] = "SOLD OUT";
+			}
 			break;
 
 		case 2:
